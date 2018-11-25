@@ -18,18 +18,19 @@ public class IOClass {
         new IOClass().fileStream();
 //        new IOClass().byteStream();
 //        new IOClass().bufferStream();
+//        new IOClass().er();
+//        new IOClass().bufferEr();
     }
 
 
-
-    private void fileStream(){
+    private void fileStream() {
         URL url = this.getClass().getClassLoader().getResource("");
-        File file = new File(url.getPath()+"\\in.txt");
+        File file = new File(url.getPath() + "\\in.txt");
         String path = IOClass.class.getClassLoader().getResource("").getPath();
         System.out.println(path);
         if (file.exists()) {
 //            file.delete();
-        }else{
+        } else {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -38,23 +39,23 @@ public class IOClass {
         }
         try {
             FileInputStream is = new FileInputStream(file);
-            File fileOut = new File(url.getPath()+"\\out.txt");
+            File fileOut = new File(url.getPath() + "\\out.txt");
             if (fileOut.exists()) {
-            }else{
+            } else {
                 try {
                     fileOut.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            FileOutputStream os = new FileOutputStream(fileOut);
+            FileOutputStream os = new FileOutputStream(fileOut,true);
             BufferedOutputStream bos = new BufferedOutputStream(os);
-            StringBuffer sb=new StringBuffer();
-            byte[] buffer=new byte[32];
-            int len=0;
-            while ((len=is.read(buffer))!=-1){
-                sb.append(new String(buffer,0,len));
-                bos.write(buffer,0,len);
+            StringBuffer sb = new StringBuffer();
+            byte[] buffer = new byte[32];
+            int len = 0;
+            while ((len = is.read(buffer)) != -1) {
+                sb.append(new String(buffer, 0, len));
+                bos.write(buffer, 0, len);
             }
             System.out.println(sb);
             bos.flush();
@@ -72,16 +73,16 @@ public class IOClass {
         }
     }
 
-    private void byteStream(){
+    private void byteStream() {
         try {
-            byte[] bytes=new byte[]{97,97};
-            ByteInputStream is = new ByteInputStream(bytes,10);
+            byte[] bytes = new byte[]{97, 97};
+            ByteInputStream is = new ByteInputStream(bytes, 10);
             ByteOutputStream os = new ByteOutputStream();
-            byte[] buffer=new byte[1024];
-            StringBuffer sb=new StringBuffer();
-            int len=0;
-            while ((len=is.read(buffer))!=-1){
-                sb.append(new String(buffer,0,len));
+            byte[] buffer = new byte[1024];
+            StringBuffer sb = new StringBuffer();
+            int len = 0;
+            while ((len = is.read(buffer)) != -1) {
+                sb.append(new String(buffer, 0, len));
                 os.write(buffer);
             }
             System.out.println(new String(os.getBytes()));
@@ -93,18 +94,18 @@ public class IOClass {
 
     }
 
-    private void bufferStream(){
+    private void bufferStream() {
         try {
-            byte[] bytes=new byte[]{97,97};
-            ByteInputStream is = new ByteInputStream(bytes,10);
-            BufferedInputStream bis=new BufferedInputStream(is);
+            byte[] bytes = new byte[]{97, 97};
+            ByteInputStream is = new ByteInputStream(bytes, 10);
+            BufferedInputStream bis = new BufferedInputStream(is);
             ByteOutputStream os = new ByteOutputStream();
             BufferedOutputStream bos = new BufferedOutputStream(os);
-            byte[] buffer=new byte[32];
-            StringBuffer sb=new StringBuffer();
-            int len=0;
-            while ((len=bis.read(buffer))!=-1){
-                sb.append(new String(buffer,0,len));
+            byte[] buffer = new byte[32];
+            StringBuffer sb = new StringBuffer();
+            int len = 0;
+            while ((len = bis.read(buffer)) != -1) {
+                sb.append(new String(buffer, 0, len));
                 bos.write(buffer);
             }
             System.out.println(sb);
@@ -117,5 +118,63 @@ public class IOClass {
             e.printStackTrace();
         }
 
+    }
+
+    private void er() {
+        URL url = this.getClass().getClassLoader().getResource("");
+        File file = new File(url.getPath() + "\\in.txt");
+        File fileOut = new File(url.getPath() + "\\out.txt");
+        FileReader reader = null;
+        FileWriter writer = null;
+        try {
+            reader = new FileReader(file);
+            writer = new FileWriter(fileOut);
+            char[] buffer = new char[32];
+            int len = 0;
+            StringBuffer sb = new StringBuffer();
+            while ((len = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, len);
+                sb.append(new String(buffer, 0, len));
+            }
+            System.out.println(sb);
+            reader.close();
+            writer.close();
+        } catch (Exception e) {
+
+        } finally {
+
+        }
+    }
+
+    private void bufferEr() {
+        URL url = this.getClass().getClassLoader().getResource("");
+        File file = new File(url.getPath() + "\\in.txt");
+        File fileOut = new File(url.getPath() + "\\out.txt");
+        FileReader reader = null;
+        FileWriter writer = null;
+        try {
+            reader = new FileReader(file);
+            //true不覆盖以前内容
+            writer = new FileWriter(fileOut,true);
+            BufferedReader br=new BufferedReader(reader);
+            BufferedWriter bw=new BufferedWriter(writer);
+//            char[] buffer = new char[32];
+//            int len = 0;
+            String s=null;
+            StringBuffer sb = new StringBuffer();
+            while ((s = br.readLine()) != null) {
+                bw.write(s);
+                bw.newLine();
+            }
+            System.out.println(sb);
+            bw.close();
+            br.close();
+            reader.close();
+            writer.close();
+        } catch (Exception e) {
+
+        } finally {
+
+        }
     }
 }
