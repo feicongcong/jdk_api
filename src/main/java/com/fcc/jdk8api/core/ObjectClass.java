@@ -11,7 +11,7 @@ import lombok.Data;
 public class ObjectClass extends Object {
     public static void main(String[] args) {
         Object obj = new Object();
-        //Object类只要包括clone(),finalize(),equals(),toString(),getClass(),notify(),notifyAll(),wait()等方法
+        //Object类包括clone(),equals(),finalize(),getClass(),hashCode(),notify(),notifyAll(),toString(),wait()方法
         //返回对象执行时的实例
         obj.getClass();
         System.out.println(obj);//java.lang.Object@68f7aae2,每个类如果没有重写toString()函数的话，默认是返回该类的名称 + “@” + 该对象hashCode值得十六进制数字
