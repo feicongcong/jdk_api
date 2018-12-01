@@ -7,6 +7,7 @@ package com.fcc.jdk8api.core.thread;
  */
 
 /**
+ * https://blog.csdn.net/haozhugogo/article/details/55050681
  *  1、新建状态（New）：新创建了一个线程对象。
  * 2、就绪状态（Runnable）：线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。
  * 3、运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码。
