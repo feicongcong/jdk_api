@@ -9,7 +9,7 @@ public class SynchronizedThreadClass {
     public static void main(String[] args) {
         Object lock =new Object();
         Thread t = new Thread(new Runnable() {
-            int i = 10;
+            int i = 20;
 
             @Override
             public void run() {
@@ -18,11 +18,25 @@ public class SynchronizedThreadClass {
 
                         if (i > 0) {
                             try {
-                                Thread.sleep(1000);
+                                Thread.sleep(100);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("ticket" + i--);
+                            System.out.println("ticket——now" + i);
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            int temp=i-1;
+                            System.out.println("temp"+temp);
+                            i=temp;
+                            System.out.println("ticket" + i);
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             break;
                         }
