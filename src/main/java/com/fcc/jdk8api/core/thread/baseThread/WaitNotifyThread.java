@@ -1,4 +1,4 @@
-package com.fcc.jdk8api.core.thread;
+package com.fcc.jdk8api.core.thread.baseThread;
 
 /**
  * @Description:
@@ -34,12 +34,30 @@ public class WaitNotifyThread {
             public void run() {
                 synchronized (lock) {
                     System.out.println("B 1");
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("B 2");
                     System.out.println("B 3");
-                    lock.notify();
+
                 }
             }
         });
         B.start();
+
+        Thread C = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (lock) {
+                    System.out.println("C 1");
+                    System.out.println("C 2");
+                    System.out.println("C 3");
+                    lock.notifyAll();
+                }
+            }
+        });
+        C.start();
     }
 }

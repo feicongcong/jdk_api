@@ -2,6 +2,10 @@ package com.fcc.jdk8api.core.thread.threadLocal;
 
 public class Test {
     //ThreadLocal 线程本地变量存储
+    //public T get() { }
+    //public void set(T value) { }
+    //public void remove() { }
+    //protected T initialValue() { }
     ThreadLocal<Long> longLocal = new ThreadLocal<Long>();
     ThreadLocal<String> stringLocal = new ThreadLocal<String>();
     ThreadLocal tl = new ThreadLocal();
@@ -22,8 +26,9 @@ public class Test {
         System.out.println(test.stringLocal.get());
         System.out.println(test.tl.get());
 
-         
+
         Thread thread1 = new Thread(){
+            @Override
             public void run() {
                 test.set();
                 test.tl.set("thread1-tl");
