@@ -1,4 +1,4 @@
-package com.fcc.jdk8api.core;
+package com.fcc.jdk8api.core.io_nio;
 
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
