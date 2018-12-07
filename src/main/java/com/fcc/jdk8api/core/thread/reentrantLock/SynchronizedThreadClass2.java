@@ -10,7 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class SynchronizedThreadClass2 {
     public static void main(String[] args) {
-        int ticketNum = 110;
+
+        int ticketNum = 20;
         Thread t = new TicketThread(ticketNum);
         new Thread(t).start();
         new Thread(t).start();
@@ -29,6 +30,7 @@ public class SynchronizedThreadClass2 {
 class TicketThread extends Thread {
 
     private int ticketNum;
+    private Lock lock=new ReentrantLock();
 
     public TicketThread(int ticketNum) {
         this.ticketNum = ticketNum;
@@ -36,21 +38,25 @@ class TicketThread extends Thread {
 
     @Override
     public void run() {
-        Lock lock=new ReentrantLock();
+
         while (true) {
             try {
                 Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            lock.lock();
-                if (ticketNum == 0) {
+                lock.lock();
+                if (ticketNum > 0) {
+                    ticketNum--;
+                    System.out.println("当前线程：" + Thread.currentThread().getName() + "当前票数：" + ticketNum);
+                }else{
+                    System.out.println("cc");
                     break;
                 }
-                ticketNum--;
-                System.out.println("当前线程：" + Thread.currentThread().getName() + "当前票数：" + ticketNum);
 
-            lock.unlock();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                lock.unlock();
+            }
+
         }
     }
 

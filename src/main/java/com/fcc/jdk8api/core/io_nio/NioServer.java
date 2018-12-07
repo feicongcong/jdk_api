@@ -17,7 +17,7 @@ import java.util.Iterator;
  */
 public class NioServer {
     private static final int BUF_SIZE = 1024;
-    private static final int PORT = 8080;
+    private static final int PORT = 8888;
     private static final int TIME_OUT = 3000;
 
     public static void main(String[] args) {

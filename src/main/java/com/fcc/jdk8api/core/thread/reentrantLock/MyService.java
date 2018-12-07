@@ -8,12 +8,12 @@ public class MyService {
     private Lock lock = new ReentrantLock();
 
     public void testMethod() {
-//        lock.lock();
+        lock.lock();
         for (int i = 0; i < 20; i++) {
             System.out.println("ThreadName=" + Thread.currentThread().getName()
                     + (" " + (i + 1)));
         }
-//        lock.unlock();
+        lock.unlock();
     }
 
 }

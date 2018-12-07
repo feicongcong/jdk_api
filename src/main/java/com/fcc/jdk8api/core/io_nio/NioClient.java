@@ -30,7 +30,7 @@ public class NioClient {
                     buffer.clear();
                     buffer.put(info.getBytes());
                     buffer.flip();
-                    if(buffer.hasRemaining()) {
+                    while(buffer.hasRemaining()) {
                         socketChannel.write(buffer);
                     }
                 }
